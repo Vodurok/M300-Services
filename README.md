@@ -82,7 +82,7 @@ sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enable
 ```
 ### User und Gruppen hinzufügen
 
-sudo groupadd SMP
+```sudo groupadd SMP
 sudo useradd steve -G SMP -m
 sudo chpasswd <<<steve:----
 
@@ -105,3 +105,4 @@ sudo chgrp eggpire eggpire.txt
 sudo chown steve smp.txt
 sudo chown phil manberg.txt
 sudo chown bad eggpire.txt
+```
