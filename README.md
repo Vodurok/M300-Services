@@ -52,7 +52,7 @@ Nach dem ich ich dann eine Windows VM gedownloadet habe ich die VM mit "vagrant 
 
 ### Die Befehle für die Firewall, SSH-Key, Proxy
 
-config.vm.provision "shell", inline: <<-SHELL
+```config.vm.provision "shell", inline: <<-SHELL
 sudo apt-get update
 sudo apt-get apache2 -y
 sudo apt-get install ufw -y
@@ -79,7 +79,7 @@ EOF
 %EOF%
 sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf #Verknüpfung zur Datei erstellen
 %EOF%
-
+```
 ### User und Gruppen hinzufügen
 
 sudo groupadd SMP
