@@ -53,31 +53,31 @@ Nach dem ich ich dann eine Windows VM gedownloadet habe ich die VM mit "vagrant 
 ### Die Befehle für die Firewall, SSH-Key, Proxy
 
 config.vm.provision "shell", inline: <<-SHELL
-	sudo apt-get update
-	sudo apt-get apache2 -y
-	sudo apt-get install ufw -y
-	sudo ufw --force enable
-	sudo ufw default deny incoming
-	sudo ufw default allow outgoing
-	sudo ufw allow ssh
-	cat <<%EOF% >> sudo ~/.ssh/authorized_keys
-	dein SSH-Key
+sudo apt-get update
+sudo apt-get apache2 -y
+sudo apt-get install ufw -y
+sudo ufw --force enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+cat <<%EOF% >> sudo ~/.ssh/authorized_keys
+dein SSH-Key
 %EOF%
-  sudo service apache2 stop #Stop Apache2 um Port freizugeben für nginx
-  sudo apt-get install nginx -y #nginx installation
-  sudo unlink /etc/nginx/sites-enabled/default #virtueller host deaktivieren
-  cd etc/nginx/sites-available/ #In das Verzeichnis wechseln
-  sudo cat >> reverse-proxy.conf << EOF #Reverse-proxy config file beschreiben
-    server {
-    listen 80;
-    location / {
-        proxy_pass http:// apache2 ip adresse
-    }
+sudo service apache2 stop #Stop Apache2 um Port freizugeben für nginx
+sudo apt-get install nginx -y #nginx installation
+sudo unlink /etc/nginx/sites-enabled/default #virtueller host deaktivieren
+cd etc/nginx/sites-available/ #In das Verzeichnis wechseln
+sudo cat >> reverse-proxy.conf << EOF #Reverse-proxy config file beschreiben
+server {
+listen 80;
+location / {
+proxy_pass http:// apache2 ip adresse
+}
 }
 EOF
 
 %EOF%
- sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf #Verknüpfung zur Datei erstellen
+sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf #Verknüpfung zur Datei erstellen
 %EOF%
 
 ### User und Gruppen hinzufügen
