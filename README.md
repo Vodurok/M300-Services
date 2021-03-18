@@ -50,62 +50,58 @@ Nach dem ich ich dann eine Windows VM gedownloadet habe ich die VM mit "vagrant 
 
 ## Sicherheit
 
-`Vagrant.configure("2") do |config|
-`config.vm.box = "ubuntu/xenial64"
+### Die Befehle für die Firewall, SSH-Key, Proxy
 
-`config.vm.provision "shell", inline: <<-SHELL
-	`sudo apt-get update
-	`sudo apt-get apache2 -y
-	`sudo apt-get install ufw -y
-	`sudo ufw --force enable
-	`sudo ufw default deny incoming
-	`sudo ufw default allow outgoing
-	`sudo ufw allow ssh
-	`cat <<%EOF% >> sudo ~/.ssh/authorized_keys	
-`ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN3aIoD9DN41boSgeF0B/9G/CaPIwMmusvbJNUVFXVGcOW14a65R6ZPABQ0XTOM7rItd5neHL871Hd4g8MZRD07FOVeiHS8i2toC3k+R/KMFrmWEM3wLD/GfZl6YVib42ZVBOS1ATmDlFOxXDYrlClpJ57Y3lRSTSz/cMP2UUAwiU+tSGCpka0Ckd7hEJrihQ6e9WnJ5/e8UYymTUx1YCfGROGNIsZ+uanJ4OPCm2JREGs921CcMsHNsz3ZmzVIrv0Tklw1gamJXrNpjyC24em2h8kubx27hoIqzkPJiC90K1jH5jCbF9HrS+/+QwSEzd0zJQCBd/JjBS3eQwY03eb julian@DESKTOP-8FJB16I
-`%EOF%
-  `sudo service apache2 stop #Stop Apache2 um Port freizugeben für nginx
-  `sudo apt-get install nginx -y #nginx installation
-  `sudo unlink /etc/nginx/sites-enabled/default #virtueller host deaktivieren
-  `cd etc/nginx/sites-available/ #In das Verzeichnis wechseln
-  `sudo cat >> reverse-proxy.conf << EOF #Reverse-proxy config file beschreiben
-    `server {
-    `listen 80;
-    `location / {
-        `proxy_pass http:Die IP von deinem apache server;
-    `}
-`}
-`EOF
-`
-`%EOF%
-` sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf #Verknüpfung zur Datei erstellen
-`%EOF%
-`
-`sudo groupadd SMP
-`sudo useradd steve -G SMP -m
-`sudo chpasswd <<<steve:1234
-`
-`sudo groupadd manberg
-`sudo useradd phil -G manberg -m
-`sudo chpasswd <<<phil:1234
-`
-`sudo groupadd eggpire
-`sudo useradd bad -G eggpire -m
-`sudo chpasswd <<<bad:1234
-`
-`sudo touch smp.txt
-`sudo touch manberg.txt
-`sudo touch eggpire.txt
-`
-`sudo chgrp SMP smp.txt
-`sudo chgrp manberg manberg.txt
-`sudo chgrp eggpire eggpire.txt
-`
-`sudo chown steve smp.txt
-`sudo chown phil manberg.txt
-`sudo chown bad eggpire.txt
-`
-`SHELL
-`end
-  
- Das ist mein ganzes vagrant file was ich benutzt habe für diese aufgabe. 
+config.vm.provision "shell", inline: <<-SHELL
+	sudo apt-get update
+	sudo apt-get apache2 -y
+	sudo apt-get install ufw -y
+	sudo ufw --force enable
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+	sudo ufw allow ssh
+	cat <<%EOF% >> sudo ~/.ssh/authorized_keys
+	dein SSH-Key
+%EOF%
+  sudo service apache2 stop #Stop Apache2 um Port freizugeben für nginx
+  sudo apt-get install nginx -y #nginx installation
+  sudo unlink /etc/nginx/sites-enabled/default #virtueller host deaktivieren
+  cd etc/nginx/sites-available/ #In das Verzeichnis wechseln
+  sudo cat >> reverse-proxy.conf << EOF #Reverse-proxy config file beschreiben
+    server {
+    listen 80;
+    location / {
+        proxy_pass http:// apache2 ip adresse
+    }
+}
+EOF
+
+%EOF%
+ sudo ln -s /etc/nginx/sites-available/reverse-proxy.conf /etc/nginx/sites-enabled/reverse-proxy.conf #Verknüpfung zur Datei erstellen
+%EOF%
+
+### User und Gruppen hinzufügen
+
+sudo groupadd SMP
+sudo useradd steve -G SMP -m
+sudo chpasswd <<<steve:----
+
+sudo groupadd manberg
+sudo useradd phil -G manberg -m
+sudo chpasswd <<<phil:----
+
+sudo groupadd eggpire
+sudo useradd bad -G eggpire -m
+sudo chpasswd <<<bad:----
+
+sudo touch smp.txt
+sudo touch manberg.txt
+sudo touch eggpire.txt
+
+sudo chgrp SMP smp.txt
+sudo chgrp manberg manberg.txt
+sudo chgrp eggpire eggpire.txt
+
+sudo chown steve smp.txt
+sudo chown phil manberg.txt
+sudo chown bad eggpire.txt
