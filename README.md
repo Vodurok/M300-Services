@@ -10,8 +10,8 @@ Mehr Dokumente: https://github.com/mc-b/M300/tree/master/20-Infrastruktur
 	
   | Befehl                         | Beschreibung																										|
   |--------------------------------|--------------------------------------------------------------------------------------------------------------------|
-  |vagrant init				   	   | Initialisiert im aktuellen Verzeichnis eine Vagrant-Umgebung und erstellt, falls nicht vorhanden, ein Vagrantfile  |
-  |vagrant up					   | Erzeugt und Konfiguriert eine neue Virtuelle Maschine, basierend auf dem Vagrantfile                               |
+  |vagrant init				   	   |Initialisiert im aktuellen Verzeichnis eine Vagrant-Umgebung und erstellt, falls nicht vorhanden, ein Vagrantfile   |
+  |vagrant up					   |Erzeugt und Konfiguriert eine neue Virtuelle Maschine, basierend auf dem Vagrantfile                                |
   |vagrant ssh					   |Baut eine SSH-Verbindung zur gewünschten VM auf                                                                     |
   |vagrant status				   |Zeigt den aktuellen Status der VM an                                                                                |
   |vagrant port					   |Zeigt die Weitergeleiteten Ports der VM an                                                                          |
@@ -25,12 +25,50 @@ Mehr Dokumente: https://github.com/mc-b/M300/tree/master/20-Infrastruktur
   |Git commit -m "comment"		   |Bestätigung welche datein hochgeladen werden sollen und man kann einen Kommentar abgeben was sich geändert hat      |
   |Git push                        |Läd die Datein dann auf GitHub hoch                                                                                 |
   |Git pull "url"                  |Damit wird das GitHub Reposetory in denn Ordner runtergeladen                                                       |
+  |docker run 					   |Das ist der befehl zum starten von einem Container																	|
+  |docker ps					   |Überblick über alle aktuellen Container																				|
+  |docker ps -a					   |Aktive und beendete Container anzeigen																				|
+  |docker images/docker images ls  |Gibt eine liste von allen Lokalen Images aus 																		|
+  |docker rm					   |Entfernt einen oder mehrere Container																				|
+  |docker rmi					   |löscht ein oder mehrere Images																						|
+  |docker start					   |Kann zum neustarten oder zum erstmalligen starten benutzt werden													|
+  |docker stop					   |Kann einen oder mehrere Container stopen																			|
+  |docker kill 					   |Beendet sofort einen Container																						|
+  |docker logs					   |Gibt logs über einen bestimten Container aus																		|
+  |docker inspect				   |Gibt alle Wichtigen informationen eines Containers aus wie Netzwerk einstellung und wie er Konfiguriert wurde		|
+  |docker diff					   |Gibt an was es alles für änderungen an diesem Container gibt im gegensatz vom ursprungs Image						|
+  |docker top					   |Gibt informationen aus zu allen laufenden Prozessen inerhalb eines Containers										|
+  |docker build -t (name) .		   |Startet Docker von einem Dockerfile																					|
+  |kubectl create				   |Erzeugt einen pod mit dem image was ausgewählt worden ist															|
+  |kubectl expose				   |(folgt)																												|
+  |kubectl run "image"			   |startet ein bestimmtes image in einem Container und legt es in einen pod											|
+  |kubectl set 					   |Dient zum updaten und bearbeiten von vorhandenen images etc.														|
+  |kubectl explain 				   |Beschreibung und Details von .yaml files																			|
+  |kubectl get                     |Macht eine Liste mit denn wichtigsten informationen einer resource welche dann mit --selector definieren kann		|
+  |kubectl edit 				   |Mann kann direkt eine resource in der command zeile bearbeiten													    |
+  |kubectl delete				   |Damit werden vorhandene Pots gelöscht mit denn Daten																|
+  |kubectl						   |Zeigt alle Befehle an die es bei Kubectl gibt																		|
   
-  
-  
-  
-  
-  
+## Kubernetes
+
+Da Kubernetes mitler weiler das aktuellste auf dem Markt ist und somit Docker ziemlich ersetzt hat habe ich mich in LB02 nur eigentlich auf Kubernetes
+konzentriert. Meine erfahrungen waren sehr positiv und es viel mir auf jeden fall einfacher als mit docker zu arbeiten.
+Kubernetes ist ein Open-Source programm und dient zu bereitstellung und verwaltung von Container-Anwendungen. Bei Kubernetes werden verschiedene Container-Lösungen
+unterstützt wie z.b Docker. Da es oft darum geht das zwei Container miteinander arbeiten müssen werdene diese unter Kubernetes in sogennanten Pods erstellt wodurch sie
+miteinander komunizieren können. Mit Services kann man dann von auserhalb auf die Container zugreifen um so mit diesen zu arbeiten.
+
+
+# Massnahmen zur Container-Sicherheit
+- Least Privilege
+- Ressourcen begrenzung
+- Container absichern
+
+# Mögliche Angriffe
+- Kernel Exploit
+- Container Breakouts
+- manipulierte Images
+
+----------------------------------------------------------------LB01-----------------------------------------------------------------------------------------  
   
 ## Dokumentation VM per vagrant Cloud downloaden
 
